@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DeviceLoan.Views.LoanListPage"
+             xmlns:vm="clr-namespace:DeviceLoan.ViewModels"
+             BackgroundColor="#FACFC9">
+
+
+    <ContentPage.BindingContext>
+        <vm:LoanListViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Dispositivo"
+                       HorizontalOptions="StartAndExpand"
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       TextColor="#FF4081"/>
+                <Label Text="Está comigo?"
+                       HorizontalOptions="EndAndExpand"
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       TextColor="#FF4081"/>
+            </StackLayout>
+            <ListView ItemsSource="{Binding ListSource}"
+                      SeparatorColor="#FF4081"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Description}" 
+                                           HorizontalOptions="StartAndExpand"
+                                           FontSize="Large"/>
+                                    <Switch IsToggled="{Binding IsLoaned}" 
+                                            HorizontalOptions="End"
+                                            VerticalOptions="EndAndExpand"/>
+                                </StackLayout>
+                                <Label Text="{Binding LoanDevolutionDate, StringFormat='Emprest./Devolv. em: {0:S}'}"
+                                       FontAttributes="Bold" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
