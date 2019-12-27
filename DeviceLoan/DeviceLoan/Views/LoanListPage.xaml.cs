@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DeviceLoan.Models;
+using DeviceLoan.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,33 @@ namespace DeviceLoan.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoanListPage : ContentPage
     {
+        public LoanListViewModel ViewModel
+        {
+            get
+            {
+                return (LoanListViewModel)BindingContext;
+            }
+        }
+
         public LoanListPage()
         {
             InitializeComponent();
+        }
+
+        private async void AddDevice_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new NewLoanPage()));
+        }
+
+        private async void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            if (await DisplayAlert("teste", "Habilitar?", "Sim, agora!", "Não, espere..."))
+            {
+                var id = (((sender as Button).CommandParameter) as Loan).Id;
+
+                ViewModel.UpdateLoanCommand.Execute(id);
+            }
+
         }
     }
 }

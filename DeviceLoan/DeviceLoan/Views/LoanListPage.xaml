@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="DeviceLoan.Views.LoanListPage"
              xmlns:vm="clr-namespace:DeviceLoan.ViewModels"
+             xmlns:control="clr-namespace:DeviceLoan.Controls"
              BackgroundColor="#FACFC9">
 
 
@@ -13,6 +14,12 @@
         <vm:LoanListViewModel />
     </ContentPage.BindingContext>
 
+    
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="add.png" Clicked="AddDevice_Clicked" />
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout Margin="20">
             <StackLayout Orientation="Horizontal">
@@ -35,14 +42,32 @@
                         <ViewCell>
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Description}" 
+                                    <Label Text="{Binding DeviceDescription}" 
                                            HorizontalOptions="StartAndExpand"
-                                           FontSize="Large"/>
-                                    <Switch IsToggled="{Binding IsLoaned}" 
+                                           FontSize="Large"
+                                           FontAttributes="Italic"/>
+                                    <control:CSwitch Checked="{Binding IsLoaned}"
+                                                     HorizontalOptions="End"
+                                                     Command="{Binding SwitchTappedCommand}" 
+                                                     CommandParameter="{Binding .}"
+                                                     CheckedImage="checked.png"
+                                                     UnCheckedImage="unchecked.png"
+                                                     Enabled="True"
+                                                     Animate="True"/>
+
+                                    <!--<Switch IsToggled="{Binding IsLoaned}" 
                                             HorizontalOptions="End"
-                                            VerticalOptions="EndAndExpand"/>
+                                            VerticalOptions="EndAndExpand" >
+                                        <Switch.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Switch_Toggled" 
+                                                                  CommandParameter="."
+                                                                  NumberOfTapsRequired="1" />
+                                        </Switch.GestureRecognizers>
+                                    </Switch>-->
                                 </StackLayout>
                                 <Label Text="{Binding LoanDevolutionDate, StringFormat='Emprest./Devolv. em: {0:S}'}"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding WhosCaugth}"
                                        FontAttributes="Bold" />
                             </StackLayout>
                         </ViewCell>

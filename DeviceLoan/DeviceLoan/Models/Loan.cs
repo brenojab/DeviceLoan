@@ -4,12 +4,14 @@ using System.Text;
 
 namespace DeviceLoan.Models
 {
-    public class Device : BaseModel
+    public class Loan : BaseModel
     {
-        public string Description { get; set; }
+        public string DeviceDescription { get; set; }
 
         public bool IsLoaned { get; set; }
 
         public string LoanDevolutionDate { get; set; }
+
+        public string WhosCaugth { get; set; }
     }
 }

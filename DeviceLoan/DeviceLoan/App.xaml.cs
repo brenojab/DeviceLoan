@@ -11,7 +11,8 @@ namespace DeviceLoan
         {
             InitializeComponent();
 
-            MainPage = new LoanListPage();
+            //MainPage = new LoanListPage();
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()

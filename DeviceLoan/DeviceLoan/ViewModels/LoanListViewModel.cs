@@ -1,13 +1,18 @@
 ﻿using DeviceLoan.Models;
+using DeviceLoan.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
+using Xamarin.Forms;
 
 namespace DeviceLoan.ViewModels
 {
     public class LoanListViewModel : BaseViewModel
     {
+        private LoanDB LoanDB = null;
+
         private bool _isLoaned = false;
         public bool IsLoaned
         {
@@ -15,41 +20,69 @@ namespace DeviceLoan.ViewModels
             set { SetProperty(ref _isLoaned, value); }
         }
 
-        public ObservableCollection<Device> ListSource { get; set; }
+        public Command SwitchTappedCommand { get; set; }
+
+        public Command LoadLoanCommand { get; set; }
+
+        public Command UpdateLoanCommand { get; set; }
+
+        public ObservableCollection<Loan> ListSource { get; set; }
 
         public LoanListViewModel()
         {
-            ListSource = new ObservableCollection<Device>()
+            LoadLoanCommand = new Command(() => LoadLoan());
+
+            UpdateLoanCommand = new Command<Guid>((id) => UpdateLoan(id));
+
+            SwitchTappedCommand = new Command<Guid>((id) => SwitchTapped(id));
+
+            LoanDB = new LoanDB();
+
+            ListSource = new ObservableCollection<Loan>();
+
+            LoadLoan();
+
+
+        }
+
+        private void SwitchTapped(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void UpdateLoan(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LoadLoan()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
             {
-                new Device()
-                {
-                    IsLoaned = false,
-                    LoanDevolutionDate = DateTime.Now.ToString(),
-                    Description = "Samsung S9",
+                ListSource.Clear();
 
-                },
-                new Device()
-                {
-                    IsLoaned = true,
-                    LoanDevolutionDate = DateTime.Now.AddDays(-2).ToString(),
+                IEnumerable<Loan> loans = null;
+                
+                loans = LoanDB.GetLoans();
 
-                    Description = "iPhone XR"
-                },
-                 new Device()
-                {
-                    IsLoaned = false,
-                    LoanDevolutionDate = DateTime.Now.AddDays(-4).ToString(),
-                    Description = "Motorola G7 Plus"
+                var items = new ObservableCollection<Loan>(loans);
 
-                },
-                 new Device()
-                {
-                    IsLoaned = true,
-                    LoanDevolutionDate = DateTime.Now.AddDays(-7).ToString(),
-                    Description = "iPhone XS Plus"
+                ListSource = items;
 
-                },
-            };
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
