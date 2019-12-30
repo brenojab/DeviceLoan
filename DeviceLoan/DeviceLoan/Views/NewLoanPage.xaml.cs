@@ -35,6 +35,8 @@ namespace DeviceLoan.Views
             ViewModel.AddLoadCommand.Execute(null);
 
             await Navigation.PopModalAsync();
+
+            MessagingCenter.Send(this, "LoadLoanMessage");
         }
     }
 }

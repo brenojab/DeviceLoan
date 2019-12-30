@@ -25,6 +25,17 @@ namespace DeviceLoan.Views
         public LoanListPage()
         {
             InitializeComponent();
+
+            Lista.ItemSelected += async (s, e) =>
+            {
+                if (await DisplayAlert("teste", "Excluir?", "Excluir", "Não ainda..."))
+                {
+                    ViewModel.DeleteLoanCommand.Execute((e.SelectedItem as Loan).Id);
+                    await Task.Delay(2000);
+                    MessagingCenter.Send(this, "LoadLoanMessage");
+                }
+            };
+
         }
 
         private async void AddDevice_Clicked(object sender, EventArgs e)
@@ -40,7 +51,6 @@ namespace DeviceLoan.Views
 
                 ViewModel.UpdateLoanCommand.Execute(id);
             }
-
         }
     }
 }

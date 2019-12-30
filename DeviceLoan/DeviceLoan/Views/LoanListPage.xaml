@@ -14,12 +14,12 @@
         <vm:LoanListViewModel />
     </ContentPage.BindingContext>
 
-    
-    
+
+
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="add.png" Clicked="AddDevice_Clicked" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <StackLayout Margin="20">
             <StackLayout Orientation="Horizontal">
@@ -36,16 +36,22 @@
             </StackLayout>
             <ListView ItemsSource="{Binding ListSource}"
                       SeparatorColor="#FF4081"
-                      HasUnevenRows="True">
+                      HasUnevenRows="True"
+                      IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      RefreshCommand="{Binding LoadLoanCommand}"
+                      x:Name="Lista">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
                                 <StackLayout Orientation="Horizontal">
+
                                     <Label Text="{Binding DeviceDescription}" 
                                            HorizontalOptions="StartAndExpand"
                                            FontSize="Large"
-                                           FontAttributes="Italic"/>
+                                           FontAttributes="Italic" />
+
                                     <control:CSwitch Checked="{Binding IsLoaned}"
                                                      HorizontalOptions="End"
                                                      Command="{Binding SwitchTappedCommand}" 
@@ -53,7 +59,7 @@
                                                      CheckedImage="checked.png"
                                                      UnCheckedImage="unchecked.png"
                                                      Enabled="True"
-                                                     Animate="True"/>
+                                                     Animate="True" />
 
                                     <!--<Switch IsToggled="{Binding IsLoaned}" 
                                             HorizontalOptions="End"

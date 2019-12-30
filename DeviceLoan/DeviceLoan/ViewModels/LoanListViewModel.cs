@@ -1,5 +1,6 @@
 ﻿using DeviceLoan.Models;
 using DeviceLoan.Services;
+using DeviceLoan.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,8 @@ namespace DeviceLoan.ViewModels
 
         public Command UpdateLoanCommand { get; set; }
 
+        public Command DeleteLoanCommand { get; set; }
+
         public ObservableCollection<Loan> ListSource { get; set; }
 
         public LoanListViewModel()
@@ -36,13 +39,24 @@ namespace DeviceLoan.ViewModels
 
             SwitchTappedCommand = new Command<Guid>((id) => SwitchTapped(id));
 
+            DeleteLoanCommand = new Command<Guid>((id) => DeleteLoan(id));
+
             LoanDB = new LoanDB();
 
             ListSource = new ObservableCollection<Loan>();
 
             LoadLoan();
 
+            MessagingCenter.Subscribe<NewLoanPage>(this, "LoadLoanMessage", (obj) =>
+            {
+                LoadLoan();
+            });
 
+        }
+
+        private void DeleteLoan(Guid id)
+        {
+            LoanDB.DeleteLoan(id);
         }
 
         private void SwitchTapped(Guid id)
@@ -70,9 +84,12 @@ namespace DeviceLoan.ViewModels
                 
                 loans = LoanDB.GetLoans();
 
-                var items = new ObservableCollection<Loan>(loans);
+                //ListSource = new ObservableCollection<Loan>(loans);
 
-                ListSource = items;
+                foreach (var item in loans)
+                {
+                    ListSource.Add(item);
+                }
 
             }
             catch (Exception ex)
