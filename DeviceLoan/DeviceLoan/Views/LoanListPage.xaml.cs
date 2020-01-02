@@ -28,7 +28,7 @@ namespace DeviceLoan.Views
 
             Lista.ItemSelected += async (s, e) =>
             {
-                if (await DisplayAlert("teste", "Excluir?", "Excluir", "Não ainda..."))
+                if (await DisplayAlert("teste", "Excluir empréstimo?", "Excluir", "Não ainda..."))
                 {
                     ViewModel.DeleteLoanCommand.Execute((e.SelectedItem as Loan).Id);
                     await Task.Delay(2000);
@@ -51,6 +51,15 @@ namespace DeviceLoan.Views
 
                 ViewModel.UpdateLoanCommand.Execute(id);
             }
+            else
+            {
+
+            }
+        }
+
+        private void Lista_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            //(sender as ListView).SelectedItem = null;
         }
     }
 }

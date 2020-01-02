@@ -40,7 +40,8 @@
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       RefreshCommand="{Binding LoadLoanCommand}"
-                      x:Name="Lista">
+                      x:Name="Lista"
+                      ItemSelected="Lista_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -71,9 +72,9 @@
                                         </Switch.GestureRecognizers>
                                     </Switch>-->
                                 </StackLayout>
-                                <Label Text="{Binding LoanDevolutionDate, StringFormat='Emprest./Devolv. em: {0:S}'}"
+                                <Label Text="{Binding LoanDevolutionDate, StringFormat='Emprest./Devolv. em: {0:d}'}"
                                        FontAttributes="Bold" />
-                                <Label Text="{Binding WhosCaugth}"
+                                <Label Text="{Binding WhosCaugth, StringFormat='A quem foi emprestado: {0:S}'}"
                                        FontAttributes="Bold" />
                             </StackLayout>
                         </ViewCell>

@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DeviceLoan.Views.NewLoanPage"
-             xmlns:vm="clr-namespace:DeviceLoan.ViewModels">
+             xmlns:vm="clr-namespace:DeviceLoan.ViewModels"
+             BackgroundColor="#FACFC9">
 
     <ContentPage.BindingContext>
         <vm:NewLoanViewModel />
@@ -26,11 +27,13 @@
             <!--Head-->
             <StackLayout Grid.Row="0"
                          VerticalOptions="End"
+                         HorizontalOptions="Center"
                          Spacing="0"
                          Padding="0">
 
                 <Label Text="Empréstimo"
-                       FontSize="Large"/>
+                       FontSize="Large"
+                       TextColor="#FF4081"/>
             </StackLayout>
 
             <!--Body-->
@@ -41,13 +44,16 @@
 
                 <Entry Placeholder="Descrição do dispositivo"
                        FontSize="20" 
-                       Text="{Binding Loan.DeviceDescription}"/>
+                       Text="{Binding Loan.DeviceDescription}"
+                       TextColor="#FF4081"/>
                 
                 <Entry Placeholder="A quem foi emprestado?"
                        FontSize="20" 
-                       Text="{Binding Loan.WhosCaugth}"/>
+                       Text="{Binding Loan.WhosCaugth}"
+                       TextColor="#FF4081"/>
 
-                <Label Text="Está emprestado?"/>
+                <Label Text="Está emprestado?"
+                       TextColor="#FF4081"/>
                 <Switch IsToggled="{Binding Loan.IsLoaned}" />
 
             </StackLayout>
@@ -60,7 +66,9 @@
                 <Button Text="Adicionar" 
                         FontSize="20"
                         HeightRequest="50"
-                        Clicked="AddLoan_Clicked"/>
+                        Clicked="AddLoan_Clicked"
+                        BackgroundColor="#6B2239"
+                        TextColor="Wheat"/>
 
             </StackLayout>
 

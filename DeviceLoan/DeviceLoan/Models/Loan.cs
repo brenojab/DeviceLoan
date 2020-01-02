@@ -10,7 +10,7 @@ namespace DeviceLoan.Models
 
         public bool IsLoaned { get; set; }
 
-        public string LoanDevolutionDate { get; set; }
+        public DateTime LoanDevolutionDate { get; set; }
 
         public string WhosCaugth { get; set; }
     }

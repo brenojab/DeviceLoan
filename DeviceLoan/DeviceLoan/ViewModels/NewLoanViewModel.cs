@@ -33,10 +33,8 @@ namespace DeviceLoan.ViewModels
         private void AddLoan()
         {
             Loan.Id = Guid.NewGuid();
-
+            Loan.CreatedAt = Loan.ModifiedAt = Loan.LoanDevolutionDate= DateTime.Now;
             string r = LoanDB.AddLoan(Loan);
         }
-
-       
     }
 }
